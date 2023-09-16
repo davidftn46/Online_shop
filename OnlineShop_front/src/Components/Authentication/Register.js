@@ -70,47 +70,56 @@ const Register = (props) => {
     
       };
   
-    const submitHandler = async(event) => {
-      event.preventDefault();
-      if(formIsValid){
-        const User= { 
-          UserName: event.target.username.value,
-          Email: enteredEmail,
-          Password: enteredPassword,
-          FirstName: event.target.firstname.value,
-          LastName:  event.target.lastname.value,
-          BirthDate :  event.target.BirthDate.value,
-          Address : event.target.address.value,
-        };
-        let selectedOption = event.target.elements.accType.value;
-        console.log(selectedOption)
-        try {
-          if(selectedOption === 'Customer'){
-            const response = await axios.post(process.env.REACT_APP_SERVER_URL+'users/registerCustomer', User);
-            console.log(response)
+      const submitHandler = async(event) => {
+        event.preventDefault();
+        const formData = new FormData();
+        if(formIsValid){
+          formData.append('UserName', event.target.username.value);
+          formData.append('Email', enteredEmail);
+          formData.append('FirstName', event.target.firstname.value);
+          formData.append('Password', enteredPassword);
+          formData.append('LastName', event.target.lastname.value);
+          formData.append('BirthDate', event.target.BirthDate.value);
+          formData.append('Address', event.target.address.value);
+          if(event.target.profilePic.files.length>0)
+            formData.append('file', event.target.profilePic.files[0]);
+          
+          let selectedOption = event.target.elements.accType.value;
+          try {
+            if(selectedOption === 'Customer'){
+              const response = await axios.post(process.env.REACT_APP_SERVER_URL+'users/registerCustomer', formData,
+              {
+                headers: { 'Content-Type': 'multipart/form-data' },
+              });
+              alert(response.data)
+              props.onClose()
+            }
+            else
+            {
+              const response = await axios.post(process.env.REACT_APP_SERVER_URL+'users/registerSeller', formData,
+              {
+                headers: {
+                  'Content-Type': 'multipart/form-data',
+                },
+              });
+              alert(response.data)
+              props.onClose()
+            }
+          } catch (error) {
+            alert(error.response.data.detail);
           }
-          else
-          {
-            const response = await axios.post(process.env.REACT_APP_SERVER_URL+'users/registerSeller', User);
-            console.log(response)
-          }
-        } catch (error) {
-          console.error(error);
-         
         }
-        authCtx.onRegister(enteredEmail, enteredPassword,enteredPasswordRepeat);
-      }
-      else if(!emailIsValid)
-      {
-        emailInputRef.current.focus();
-      }
-      else if(!passwordIsValid){
-        passwordInputRef.current.focus();
-      }
-      else if(!passwordRepeatIsValid){
-        passwordRepeatInputRef.current.focus();
-      }
-    };
+        else if(!emailIsValid)
+        {
+          emailInputRef.current.focus();
+        }
+        else if(!passwordIsValid){
+          passwordInputRef.current.focus();
+        }
+        else if(!passwordRepeatIsValid){
+          passwordRepeatInputRef.current.focus();
+        }
+      };
   
   return (
     <Modal onClose={props.onClose} className={classes.login}>

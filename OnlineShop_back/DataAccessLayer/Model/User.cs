@@ -1,4 +1,5 @@
 ﻿using Addition;
+using DataAccessLayer.Model;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -21,6 +22,9 @@ namespace DataAccesLayer.Model
         public Roles.RolesType Role { get; set; }
         public bool IsVerified { get; set; }
         public Guid PasswordGuid { get; set; } 
-        public string ProfileUrl { get; set; } 
+        public string ProfileUrl { get; set; }
+
+        public List<Product> Products { get; set; }
+        public List<Order> Orders { get; set; }
     }
 }

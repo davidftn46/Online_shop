@@ -13,26 +13,27 @@ using BusinessLogicLayer.Services.Map;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
-
 builder.Services.AddDbContext<ApplicationDbContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 builder.Services.Configure<EmailStructure>(builder.Configuration.GetSection("EmailSettings"));
 builder.Services.AddTransient<IEmailService, EmailService>();
 builder.Services.AddTransient<IUserService, UserService>();
+builder.Services.AddTransient<IOrderService, OrderService>();
+builder.Services.AddSingleton<IShipmentService, ShipmentService>();
+builder.Services.AddTransient<IProductService, ProductService>();
 builder.Services.AddTransient<IUnitOfWork, UnitOfWork>();
 
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-builder.Services.AddAuthorization(options =>
-{
-    options.AddPolicy("SamoOdabrani", policy => policy.RequireClaim("Neki_moj_claim")); 
-});
-
 builder.Services.AddAuthentication(opt => {
     opt.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
     opt.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+})
+.AddGoogle("Google", options =>
+{
+    options.ClientId = "1096475234419-442tf3u29nsd8qi50qh6rmfe5i1sdqjk.apps.googleusercontent.com";
+    options.ClientSecret = "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";
 })
 .AddJwtBearer(options =>
 {
@@ -46,6 +47,7 @@ builder.Services.AddAuthentication(opt => {
         IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(builder.Configuration["SecretKey"]))
     };
 });
+
 
 var mapperConfig = new MapperConfiguration(mc =>
 {
@@ -62,23 +64,24 @@ builder.Services.AddCors(options =>
         {
             policy.AllowAnyOrigin()
                 .AllowAnyHeader()
+                .SetIsOriginAllowed(origin => true)
                 .AllowAnyMethod();
         });
 });
 
+
 var app = builder.Build();
 
-// Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
     app.UseSwaggerUI();
 }
-
 app.UseHttpsRedirection();
-
+app.UseAuthentication();
 app.UseAuthorization();
 app.UseCors();
+
 
 app.MapControllers();
 

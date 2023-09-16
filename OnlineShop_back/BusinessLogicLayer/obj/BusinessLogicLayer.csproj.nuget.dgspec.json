@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\David\\Desktop\\Veb2-projekat\\OnlineShop_back\\BusinessLogicLayer\\BusinessLogicLayer.csproj": {}
+    "C:\\Users\\David\\Desktop\\Veb2-projekat\\Online_shop\\OnlineShop_back\\BusinessLogicLayer\\BusinessLogicLayer.csproj": {}
   },
   "projects": {
-    "C:\\Users\\David\\Desktop\\Veb2-projekat\\OnlineShop_back\\Addition\\Addition.csproj": {
+    "C:\\Users\\David\\Desktop\\Veb2-projekat\\Online_shop\\OnlineShop_back\\Addition\\Addition.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\David\\Desktop\\Veb2-projekat\\OnlineShop_back\\Addition\\Addition.csproj",
+        "projectUniqueName": "C:\\Users\\David\\Desktop\\Veb2-projekat\\Online_shop\\OnlineShop_back\\Addition\\Addition.csproj",
         "projectName": "Addition",
-        "projectPath": "C:\\Users\\David\\Desktop\\Veb2-projekat\\OnlineShop_back\\Addition\\Addition.csproj",
+        "projectPath": "C:\\Users\\David\\Desktop\\Veb2-projekat\\Online_shop\\OnlineShop_back\\Addition\\Addition.csproj",
         "packagesPath": "C:\\Users\\David\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\David\\Desktop\\Veb2-projekat\\OnlineShop_back\\Addition\\obj\\",
+        "outputPath": "C:\\Users\\David\\Desktop\\Veb2-projekat\\Online_shop\\OnlineShop_back\\Addition\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\David\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -44,6 +44,10 @@
               "target": "Package",
               "version": "[12.0.1, )"
             },
+            "Microsoft.AspNetCore.Authentication.Google": {
+              "target": "Package",
+              "version": "[7.0.11, )"
+            },
             "Microsoft.AspNetCore.Authentication.JwtBearer": {
               "target": "Package",
               "version": "[7.0.10, )"
@@ -83,14 +87,14 @@
         }
       }
     },
-    "C:\\Users\\David\\Desktop\\Veb2-projekat\\OnlineShop_back\\BusinessLogicLayer\\BusinessLogicLayer.csproj": {
+    "C:\\Users\\David\\Desktop\\Veb2-projekat\\Online_shop\\OnlineShop_back\\BusinessLogicLayer\\BusinessLogicLayer.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\David\\Desktop\\Veb2-projekat\\OnlineShop_back\\BusinessLogicLayer\\BusinessLogicLayer.csproj",
+        "projectUniqueName": "C:\\Users\\David\\Desktop\\Veb2-projekat\\Online_shop\\OnlineShop_back\\BusinessLogicLayer\\BusinessLogicLayer.csproj",
         "projectName": "BusinessLogicLayer",
-        "projectPath": "C:\\Users\\David\\Desktop\\Veb2-projekat\\OnlineShop_back\\BusinessLogicLayer\\BusinessLogicLayer.csproj",
+        "projectPath": "C:\\Users\\David\\Desktop\\Veb2-projekat\\Online_shop\\OnlineShop_back\\BusinessLogicLayer\\BusinessLogicLayer.csproj",
         "packagesPath": "C:\\Users\\David\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\David\\Desktop\\Veb2-projekat\\OnlineShop_back\\BusinessLogicLayer\\obj\\",
+        "outputPath": "C:\\Users\\David\\Desktop\\Veb2-projekat\\Online_shop\\OnlineShop_back\\BusinessLogicLayer\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\David\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -107,11 +111,11 @@
           "net7.0": {
             "targetAlias": "net7.0",
             "projectReferences": {
-              "C:\\Users\\David\\Desktop\\Veb2-projekat\\OnlineShop_back\\Addition\\Addition.csproj": {
-                "projectPath": "C:\\Users\\David\\Desktop\\Veb2-projekat\\OnlineShop_back\\Addition\\Addition.csproj"
+              "C:\\Users\\David\\Desktop\\Veb2-projekat\\Online_shop\\OnlineShop_back\\Addition\\Addition.csproj": {
+                "projectPath": "C:\\Users\\David\\Desktop\\Veb2-projekat\\Online_shop\\OnlineShop_back\\Addition\\Addition.csproj"
               },
-              "C:\\Users\\David\\Desktop\\Veb2-projekat\\OnlineShop_back\\DataAccessLayer\\DataAccessLayer.csproj": {
-                "projectPath": "C:\\Users\\David\\Desktop\\Veb2-projekat\\OnlineShop_back\\DataAccessLayer\\DataAccessLayer.csproj"
+              "C:\\Users\\David\\Desktop\\Veb2-projekat\\Online_shop\\OnlineShop_back\\DataAccessLayer\\DataAccessLayer.csproj": {
+                "projectPath": "C:\\Users\\David\\Desktop\\Veb2-projekat\\Online_shop\\OnlineShop_back\\DataAccessLayer\\DataAccessLayer.csproj"
               }
             }
           }
@@ -129,6 +133,10 @@
             "AutoMapper": {
               "target": "Package",
               "version": "[12.0.1, )"
+            },
+            "Microsoft.AspNetCore.Authentication.Google": {
+              "target": "Package",
+              "version": "[7.0.11, )"
             },
             "Microsoft.AspNetCore.Authentication.JwtBearer": {
               "target": "Package",
@@ -169,14 +177,14 @@
         }
       }
     },
-    "C:\\Users\\David\\Desktop\\Veb2-projekat\\OnlineShop_back\\DataAccessLayer\\DataAccessLayer.csproj": {
+    "C:\\Users\\David\\Desktop\\Veb2-projekat\\Online_shop\\OnlineShop_back\\DataAccessLayer\\DataAccessLayer.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\David\\Desktop\\Veb2-projekat\\OnlineShop_back\\DataAccessLayer\\DataAccessLayer.csproj",
+        "projectUniqueName": "C:\\Users\\David\\Desktop\\Veb2-projekat\\Online_shop\\OnlineShop_back\\DataAccessLayer\\DataAccessLayer.csproj",
         "projectName": "DataAccessLayer",
-        "projectPath": "C:\\Users\\David\\Desktop\\Veb2-projekat\\OnlineShop_back\\DataAccessLayer\\DataAccessLayer.csproj",
+        "projectPath": "C:\\Users\\David\\Desktop\\Veb2-projekat\\Online_shop\\OnlineShop_back\\DataAccessLayer\\DataAccessLayer.csproj",
         "packagesPath": "C:\\Users\\David\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\David\\Desktop\\Veb2-projekat\\OnlineShop_back\\DataAccessLayer\\obj\\",
+        "outputPath": "C:\\Users\\David\\Desktop\\Veb2-projekat\\Online_shop\\OnlineShop_back\\DataAccessLayer\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\David\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -193,8 +201,8 @@
           "net7.0": {
             "targetAlias": "net7.0",
             "projectReferences": {
-              "C:\\Users\\David\\Desktop\\Veb2-projekat\\OnlineShop_back\\Addition\\Addition.csproj": {
-                "projectPath": "C:\\Users\\David\\Desktop\\Veb2-projekat\\OnlineShop_back\\Addition\\Addition.csproj"
+              "C:\\Users\\David\\Desktop\\Veb2-projekat\\Online_shop\\OnlineShop_back\\Addition\\Addition.csproj": {
+                "projectPath": "C:\\Users\\David\\Desktop\\Veb2-projekat\\Online_shop\\OnlineShop_back\\Addition\\Addition.csproj"
               }
             }
           }
@@ -212,6 +220,10 @@
             "AutoMapper": {
               "target": "Package",
               "version": "[12.0.1, )"
+            },
+            "Microsoft.AspNetCore.Authentication.Google": {
+              "target": "Package",
+              "version": "[7.0.11, )"
             },
             "Microsoft.AspNetCore.Authentication.JwtBearer": {
               "target": "Package",

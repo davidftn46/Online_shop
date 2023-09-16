@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 using Addition;
 using Addition.Mutual;
 using Addition.Constants;
+using Microsoft.AspNetCore.Authorization;
 
 namespace Projekat_Backend.Controllers
 {
@@ -29,92 +30,210 @@ namespace Projekat_Backend.Controllers
                     return Ok(response.Data);
                 else
                 {
-                    ModelState.AddModelError(String.Empty, response.Message);
-                    return Problem("Login");
+                    return Problem(response.Message, statusCode: (int)response.Status);
                 }
             }
             else
             {
-                ModelState.AddModelError(String.Empty, "Invalid login atempt.");
-                return Problem("Login");
+                return Problem("Entered values not valid", statusCode: (int)Feedback.BadRequest);
             }
         }
 
+
+        [HttpPost("googleLogin")]
+        public async Task<IActionResult> GoogleLogin([FromBody] string googleAccessToken = null)
+        {
+            if (!string.IsNullOrEmpty(googleAccessToken))
+            {
+                Answer<ProfileDTO> response = await _userService.GoogleLogin(googleAccessToken);
+                if (response.Status == Feedback.OK)
+                    return Ok(response.Data);
+                else
+                {
+                    return Problem(response.Message, statusCode: (int)response.Status);
+                }
+            }
+            return BadRequest();
+
+        }
+
+        [HttpPost("googleRegister")]
+        public async Task<IActionResult> GoogleRegister([FromBody] GoogleRegisterToken googleRegisterDTO)
+        {
+            if (!string.IsNullOrEmpty(googleRegisterDTO.GoogleAccessToken))
+            {
+                Answer<bool> response;
+                if (googleRegisterDTO.Role == "customer")
+                    response = await _userService.GoogleRegister(googleRegisterDTO.GoogleAccessToken, Roles.RolesType.Customer);
+                else if (googleRegisterDTO.Role == "seller")
+                    response = await _userService.GoogleRegister(googleRegisterDTO.GoogleAccessToken, Roles.RolesType.Seller);
+                else
+                    return BadRequest();
+
+                if (response.Status == Feedback.OK)
+                    return Ok(response.Data);
+                else
+                {
+                    return Problem(response.Message, statusCode: (int)response.Status);
+                }
+            }
+            return BadRequest();
+
+        }
+
         [HttpPost("registerCustomer")]
-        public async Task<IActionResult> RegisterCustomer([FromBody] UserDTO UserDTO)
+        public async Task<IActionResult> RegisterCustomer([FromForm] UserDTO UserDTO, IFormFile? file = null)
         {
             if (ModelState.IsValid)
             {
-                var task = await _userService.RegisterUser(UserDTO, Roles.RolesType.Customer);
+                string filePath;
+                if (file != null && file.Length > 0)
+                {
+                    string fileName = Guid.NewGuid().ToString() + Path.GetExtension(file.FileName);
+
+                    string uploadPath = "Avatars";
+                    Console.WriteLine(uploadPath);
+
+                    if (!Directory.Exists(uploadPath))
+                    {
+                        Directory.CreateDirectory(uploadPath);
+                    }
+
+                    filePath = Path.Combine(uploadPath, fileName);
+
+                    using (var stream = new FileStream(filePath, FileMode.Create))
+                    {
+                        await file.CopyToAsync(stream);
+                    }
+                }
+                else
+                {
+                    filePath = Path.Combine(Directory.GetCurrentDirectory(), "Avatars");
+                    filePath = Path.Combine(filePath, "avatar.svg");
+                }
+
+                var task = await _userService.RegisterUser(UserDTO, Roles.RolesType.Customer, filePath);
                 if (task.Status == Feedback.OK)
                     return Ok(task.Message);
-                else if (task.Status == Feedback.InvalidEmail)
-                    ModelState.AddModelError("email", task.Message);
-                else if (task.Status == Feedback.InvalidUsername)
-                    ModelState.AddModelError("username", task.Message);
                 else if (task.Status == Feedback.InternalServerError)
-                    ModelState.AddModelError(String.Empty, task.Message);
+                {
+                    if (System.IO.File.Exists(filePath) && file != null)
+                    {
+                        System.IO.File.Delete(filePath);
+                    }
+                    return Problem(task.Message, statusCode: ((int)task.Status));
+                }
                 else
-                    ModelState.AddModelError(String.Empty, task.Message);
+                    return Problem(task.Message, statusCode: ((int)task.Status));
             }
-            return Problem();
+            return Problem("Entered values not valid", statusCode: (int)Feedback.BadRequest);
 
         }
 
         [HttpPost("registerSeller")]
-        public async Task<IActionResult> RegisterSeller([FromBody] UserDTO UserDTO)
+        public async Task<IActionResult> RegisterSeller([FromForm] UserDTO UserDTO, IFormFile? file = null)
         {
             if (ModelState.IsValid)
             {
-                var task = await _userService.RegisterUser(UserDTO, Roles.RolesType.Seller);
+                string filePath;
+                if (file != null && file.Length > 0)
+                {
+                    string fileName = Guid.NewGuid().ToString() + Path.GetExtension(file.FileName);
+
+                    string uploadPath = Path.Combine(Directory.GetCurrentDirectory(), "Avatars");
+                    Console.WriteLine(uploadPath);
+
+                    if (!Directory.Exists(uploadPath))
+                    {
+                        Directory.CreateDirectory(uploadPath);
+                    }
+
+                    filePath = Path.Combine(uploadPath, fileName);
+
+                    using (var stream = new FileStream(filePath, FileMode.Create))
+                    {
+                        await file.CopyToAsync(stream);
+                    }
+                }
+                else
+                {
+                    filePath = Path.Combine(Directory.GetCurrentDirectory(), "Avatars");
+                    filePath = Path.Combine(filePath, "avatar.svg");
+                }
+
+                var task = await _userService.RegisterUser(UserDTO, Roles.RolesType.Seller, filePath);
                 if (task.Status == Feedback.OK)
                     return Ok(task.Message);
-                else if (task.Status == Feedback.InvalidEmail)
-                    ModelState.AddModelError("email", task.Message);
-                else if (task.Status == Feedback.InvalidUsername)
-                    ModelState.AddModelError("username", task.Message);
                 else if (task.Status == Feedback.InternalServerError)
-                    ModelState.AddModelError(String.Empty, task.Message);
+                {
+                    if (System.IO.File.Exists(filePath) && file != null)
+                    {
+                        System.IO.File.Delete(filePath);
+                    }
+                    return Problem(task.Message, statusCode: ((int)task.Status));
+                }
                 else
-                    ModelState.AddModelError(String.Empty, task.Message);
+                    return Problem(task.Message, statusCode: ((int)task.Status));
             }
             return Problem();
 
         }
 
         [HttpPost("registerAdmin")]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> RegisterAdmin(AdministratorDTO UserDTO)
+        public IActionResult RegisterAdmin(UserDTO UserDTO)
         {
             if (ModelState.IsValid)
             {
-                var task = await _userService.RegisterAdmin(UserDTO);
+                var task = _userService.RegisterAdmin(UserDTO);
                 if (task.Status == Feedback.OK)
-                    return RedirectToAction("Index", "Home");
+                    return Ok(task.Message);
                 else if (task.Status == Feedback.InvalidEmail)
                     ModelState.AddModelError("email", task.Message);
+                else if (task.Status == Feedback.InvalidUsername)
+                    ModelState.AddModelError("username", task.Message);
+                else if (task.Status == Feedback.InternalServerError)
+                    ModelState.AddModelError(String.Empty, task.Message);
                 else
                     ModelState.AddModelError(String.Empty, task.Message);
             }
-            return Ok();
+            return Problem();
 
         }
 
-        [HttpPost("forgotPassword")]
-        public async Task<IActionResult> ForgotPassword(string email)
+        [HttpGet("notVerified")]
+        [Authorize(Roles = "Administrator")]
+        public IActionResult GetUnverified()
         {
-            var task = await _userService.ForgotPassword(email);
-            if (task.Status == Feedback.OK)
-                return RedirectToAction("Index", "Home");
-            else if (task.Status == Feedback.InvalidEmail)
-                ModelState.AddModelError(String.Empty, task.Message);
-            else if (task.Status == Feedback.AccountNotActivated)
-                ModelState.AddModelError(String.Empty, task.Message);
+            var result = _userService.GetVerified();
+            if (result.Status == Feedback.AllUsersVerified)
+                return Ok(result.Message);
+            else if (result.Status == Feedback.OK)
+                return Ok(result.Data);
             else
-                ModelState.AddModelError(String.Empty, task.Message);
+                return Problem(result.Message);
 
-            return Ok();
+        }
 
+        [HttpPost("verify")]
+        [Authorize(Roles = "Administrator")]
+        public async Task<IActionResult> Verify([FromBody] VerificationDTO user)
+        {
+            var result = await _userService.VerifyUser(user);
+            if (result.Status == Feedback.OK)
+                return Ok(result.Message);
+            else
+                return Problem(detail: result.Message, statusCode: (int)result.Status);
+        }
+
+        [HttpPost("deny")]
+        [Authorize(Roles = "Administrator")]
+        public async Task<IActionResult> Deny([FromBody] VerificationDTO user)
+        {
+            var result = await _userService.DenyUser(user);
+            if (result.Status == Feedback.OK)
+                return Ok(result.Message);
+            else
+                return Problem(detail: result.Message, statusCode: (int)result.Status);
         }
 
         [HttpGet("resetPassword")]
@@ -132,7 +251,8 @@ namespace Projekat_Backend.Controllers
             {
                 Answer<bool> response = _userService.ResetPassword(passwordResetDTO);
                 if (response.Status == Feedback.OK)
-                {                   
+                {
+                    
                     return RedirectToAction("Login");
                 }
                 else
@@ -144,36 +264,56 @@ namespace Projekat_Backend.Controllers
             return Ok();
         }
 
-        [HttpGet("profile")]
-        public IActionResult Profil(string? email)
-        {
-            if (email == null)
-                return RedirectToAction("Login", "Account");
-            ProfileDTO profileDTO = _userService.GetProfile(email).Data;
-
-            return Ok(profileDTO);
-        }
-
-        [HttpPost]
-        [ActionName("Profil")]
-        public IActionResult Profil(ProfileDTO profileDTO, IFormFile? file)
+        [HttpPost("updateUser")]
+        public async Task<IActionResult> UpdateUser([FromForm] UserDTO UserDTO, IFormFile? file = null)
         {
             if (ModelState.IsValid)
             {
-
-                Answer<bool> response = _userService.UpdateProfile(profileDTO);
-                if (response.Status == Feedback.OK)
+                string filePath;
+                string avatar = String.Empty;
+                if (file != null && file.Length > 0)
                 {
+                    string fileName = Guid.NewGuid().ToString() + Path.GetExtension(file.FileName);
 
-                    return RedirectToAction("Index", "Home");
+                    string uploadPath = "Avatars";
+                    Console.WriteLine(uploadPath);
+
+                    if (!Directory.Exists(uploadPath))
+                    {
+                        Directory.CreateDirectory(uploadPath);
+                    }
+
+                    filePath = Path.Combine(uploadPath, fileName);
+
+                    using (var stream = new FileStream(filePath, FileMode.Create))
+                    {
+                        await file.CopyToAsync(stream);
+                    }
+
+
                 }
                 else
+                    filePath = String.Empty;
+
+                var task = _userService.UpdateProfile(UserDTO, filePath);
+                if (task.Status == Feedback.OK)
                 {
-                    ModelState.AddModelError(string.Empty, response.Message);
-                    return NotFound();
+
+                    return Ok(task.Data);
                 }
+                else if (task.Status == Feedback.InternalServerError)
+                {
+                    if (System.IO.File.Exists(filePath) && file != null)
+                    {
+                        System.IO.File.Delete(filePath);
+                    }
+                    return Problem(task.Message, statusCode: ((int)task.Status));
+                }
+                else
+                    return Problem(task.Message, statusCode: ((int)task.Status));
             }
-            return Ok();
+            return Problem("Entered values not valid", statusCode: (int)Feedback.BadRequest);
+
         }
 
     }

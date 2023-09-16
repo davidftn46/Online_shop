@@ -22,9 +22,6 @@ const Header = (props) => {
                 )}
               </ul>
             </nav>
-            {ctx.isLoggedIn && (
-              <HeaderCartBtn onClick={props.onShowCart}/>
-            )}
         </header>
     </Fragment>
   )

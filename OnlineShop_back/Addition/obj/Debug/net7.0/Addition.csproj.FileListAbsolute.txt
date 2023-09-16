@@ -12,3 +12,17 @@ C:\Users\David\Desktop\Veb2-projekat\OnlineShop_back\Addition\obj\Debug\net7.0\A
 C:\Users\David\Desktop\Veb2-projekat\OnlineShop_back\Addition\obj\Debug\net7.0\ref\Addition.dll
 C:\Users\David\Desktop\Veb2-projekat\OnlineShop_back\Addition\bin\Debug\net7.0\Addition.runtimeconfig.json
 C:\Users\David\Desktop\Veb2-projekat\OnlineShop_back\Addition\obj\Debug\net7.0\Addition.genruntimeconfig.cache
+C:\Users\David\Desktop\Veb2-projekat\Online_shop\OnlineShop_back\Addition\bin\Debug\net7.0\Addition.deps.json
+C:\Users\David\Desktop\Veb2-projekat\Online_shop\OnlineShop_back\Addition\bin\Debug\net7.0\Addition.runtimeconfig.json
+C:\Users\David\Desktop\Veb2-projekat\Online_shop\OnlineShop_back\Addition\bin\Debug\net7.0\Addition.dll
+C:\Users\David\Desktop\Veb2-projekat\Online_shop\OnlineShop_back\Addition\bin\Debug\net7.0\Addition.pdb
+C:\Users\David\Desktop\Veb2-projekat\Online_shop\OnlineShop_back\Addition\obj\Debug\net7.0\Addition.csproj.AssemblyReference.cache
+C:\Users\David\Desktop\Veb2-projekat\Online_shop\OnlineShop_back\Addition\obj\Debug\net7.0\Addition.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\David\Desktop\Veb2-projekat\Online_shop\OnlineShop_back\Addition\obj\Debug\net7.0\Addition.AssemblyInfoInputs.cache
+C:\Users\David\Desktop\Veb2-projekat\Online_shop\OnlineShop_back\Addition\obj\Debug\net7.0\Addition.AssemblyInfo.cs
+C:\Users\David\Desktop\Veb2-projekat\Online_shop\OnlineShop_back\Addition\obj\Debug\net7.0\Addition.csproj.CoreCompileInputs.cache
+C:\Users\David\Desktop\Veb2-projekat\Online_shop\OnlineShop_back\Addition\obj\Debug\net7.0\Addition.dll
+C:\Users\David\Desktop\Veb2-projekat\Online_shop\OnlineShop_back\Addition\obj\Debug\net7.0\refint\Addition.dll
+C:\Users\David\Desktop\Veb2-projekat\Online_shop\OnlineShop_back\Addition\obj\Debug\net7.0\Addition.pdb
+C:\Users\David\Desktop\Veb2-projekat\Online_shop\OnlineShop_back\Addition\obj\Debug\net7.0\Addition.genruntimeconfig.cache
+C:\Users\David\Desktop\Veb2-projekat\Online_shop\OnlineShop_back\Addition\obj\Debug\net7.0\ref\Addition.dll

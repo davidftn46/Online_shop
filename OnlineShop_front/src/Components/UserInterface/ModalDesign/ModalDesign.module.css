@@ -6,40 +6,37 @@
   height: 100vh;
   z-index: 20;
   background-color: rgba(0, 0, 0, 0.75);
-  backdrop-filter: blur(5px); 
 }
 
 .modal {
   position: fixed;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  max-width: 90%;
-  width: 400px; 
-  background-color: darkgray;
-  padding: 2rem;
-  border-radius: 8px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+  top: 5%;
+  left: 5%;
+  max-height: 90%;
+  width: 90%;
+  background-color: white;
+  padding: 1rem;
+  border-radius: 14px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.25);
   z-index: 30;
-  opacity: 0;
-  animation: fadeIn 300ms ease-out forwards;
-  
+  animation: slide-down 300ms ease-out forwards;
+  overflow-y:auto
 }
 
-@media (max-width: 768px) {
+@media (min-width: 768px) {
   .modal {
-    width: 90%;
-    max-width: 90%;
-    left: 50%;
-    transform: translateX(-50%);
+    width: 40rem;
+    left: calc(50% - 20rem);
   }
 }
 
-@keyframes fadeIn {
+@keyframes slide-down {
   from {
     opacity: 0;
+    transform: translateY(-3rem);
   }
   to {
     opacity: 1;
+    transform: translateY(0);
   }
 }

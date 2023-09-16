@@ -75,6 +75,22 @@
           }
         }
       },
+      "Microsoft.AspNetCore.Authentication.Google/7.0.11": {
+        "type": "package",
+        "compile": {
+          "lib/net7.0/Microsoft.AspNetCore.Authentication.Google.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/net7.0/Microsoft.AspNetCore.Authentication.Google.dll": {
+            "related": ".xml"
+          }
+        },
+        "frameworkReferences": [
+          "Microsoft.AspNetCore.App"
+        ]
+      },
       "Microsoft.AspNetCore.Authentication.JwtBearer/7.0.10": {
         "type": "package",
         "dependencies": {
@@ -1240,6 +1256,21 @@
         "lib/netstandard2.0/Humanizer.dll",
         "lib/netstandard2.0/Humanizer.xml",
         "logo.png"
+      ]
+    },
+    "Microsoft.AspNetCore.Authentication.Google/7.0.11": {
+      "sha512": "tEIhPwZpF9Sa6w0hbQsRYQ+0AzL4aIRSyNu6gbkCdPwjILIl567IEAGCVTzkzi/Kxqvyz4N75tz3hDJ0szKmaA==",
+      "type": "package",
+      "path": "microsoft.aspnetcore.authentication.google/7.0.11",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "Icon.png",
+        "THIRD-PARTY-NOTICES.TXT",
+        "lib/net7.0/Microsoft.AspNetCore.Authentication.Google.dll",
+        "lib/net7.0/Microsoft.AspNetCore.Authentication.Google.xml",
+        "microsoft.aspnetcore.authentication.google.7.0.11.nupkg.sha512",
+        "microsoft.aspnetcore.authentication.google.nuspec"
       ]
     },
     "Microsoft.AspNetCore.Authentication.JwtBearer/7.0.10": {
@@ -3523,6 +3554,7 @@
   "projectFileDependencyGroups": {
     "net7.0": [
       "AutoMapper >= 12.0.1",
+      "Microsoft.AspNetCore.Authentication.Google >= 7.0.11",
       "Microsoft.AspNetCore.Authentication.JwtBearer >= 7.0.10",
       "Microsoft.EntityFrameworkCore >= 7.0.10",
       "Microsoft.EntityFrameworkCore.SqlServer >= 7.0.10",
@@ -3535,11 +3567,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\David\\Desktop\\Veb2-projekat\\OnlineShop_back\\Addition\\Addition.csproj",
+      "projectUniqueName": "C:\\Users\\David\\Desktop\\Veb2-projekat\\Online_shop\\OnlineShop_back\\Addition\\Addition.csproj",
       "projectName": "Addition",
-      "projectPath": "C:\\Users\\David\\Desktop\\Veb2-projekat\\OnlineShop_back\\Addition\\Addition.csproj",
+      "projectPath": "C:\\Users\\David\\Desktop\\Veb2-projekat\\Online_shop\\OnlineShop_back\\Addition\\Addition.csproj",
       "packagesPath": "C:\\Users\\David\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\David\\Desktop\\Veb2-projekat\\OnlineShop_back\\Addition\\obj\\",
+      "outputPath": "C:\\Users\\David\\Desktop\\Veb2-projekat\\Online_shop\\OnlineShop_back\\Addition\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\David\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -3571,6 +3603,10 @@
           "AutoMapper": {
             "target": "Package",
             "version": "[12.0.1, )"
+          },
+          "Microsoft.AspNetCore.Authentication.Google": {
+            "target": "Package",
+            "version": "[7.0.11, )"
           },
           "Microsoft.AspNetCore.Authentication.JwtBearer": {
             "target": "Package",

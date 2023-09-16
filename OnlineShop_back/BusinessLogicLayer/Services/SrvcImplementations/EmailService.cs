@@ -12,54 +12,54 @@ using System.Threading.Tasks;
 
 namespace BusinessLogicLayer.Services.SrvcImplementations
 {
-    public class EmailService: IEmailService
-    {
-        private readonly IOptions<EmailStructure> _emailConfiguration;
-
-        public EmailService(IOptions<EmailStructure> emailConfiguration)
+        public class EmailService : IEmailService
         {
-            this._emailConfiguration = emailConfiguration;
-        }
+            private readonly IOptions<EmailStructure> _emailConfiguration;
 
-        public async Task<bool> SendMailAsync(EmailData emailData)
-        {
-            MailMessage msg = new MailMessage();
-            try
+            public EmailService(IOptions<EmailStructure> emailConfiguration)
             {
-                msg.To.Add(new MailAddress(emailData.Towho));
-                foreach (var ccItem in emailData.ClientList)
+                this._emailConfiguration = emailConfiguration;
+            }
+
+            public async Task<bool> SendMailAsync(EmailData emailData)
+            {
+                MailMessage msg = new MailMessage();
+                try
                 {
-                    msg.CC.Add(new MailAddress(ccItem));
+                    msg.To.Add(new MailAddress(emailData.Towho));
+                    foreach (var ccItem in emailData.ClientList)
+                    {
+                        msg.CC.Add(new MailAddress(ccItem));
+                    }
+                    msg.From = new MailAddress(_emailConfiguration.Value.Fromwho);
+
+                    msg.Subject = emailData.Subject;
+
+                    if (emailData.HtmlContent)
+                        msg.AlternateViews.Add(AlternateView.CreateAlternateViewFromString(emailData.Content, null, MediaTypeNames.Text.Html));
+                    else
+                        msg.Body = emailData.Content;
+
+                    var smtp = new SmtpClient
+                    {
+                        Host = "smtp.gmail.com",
+                        Port = 587,
+                        EnableSsl = true,
+                        DeliveryMethod = SmtpDeliveryMethod.Network,
+                        UseDefaultCredentials = false,
+                        Credentials = new NetworkCredential(_emailConfiguration.Value.Email, _emailConfiguration.Value.Password)
+                    };
+
+                    await smtp.SendMailAsync(msg);
+
                 }
-                msg.From = new MailAddress(_emailConfiguration.Value.Fromwho);
-
-                msg.Subject = emailData.Subject;
-
-                if (emailData.HtmlContent)
-                    msg.AlternateViews.Add(AlternateView.CreateAlternateViewFromString(emailData.Content, null, MediaTypeNames.Text.Html));
-                else
-                    msg.Body = emailData.Content;
-
-                var smtp = new SmtpClient
+                catch (Exception ex)
                 {
-                    Host = "smtp.gmail.com",
-                    Port = 587,
-                    EnableSsl = true,
-                    DeliveryMethod = SmtpDeliveryMethod.Network,
-                    UseDefaultCredentials = false,
-                    Credentials = new NetworkCredential(_emailConfiguration.Value.Email, _emailConfiguration.Value.Password)
-                };
+                    Console.WriteLine(ex.Message);
+                    return false;
+                }
 
-                await smtp.SendMailAsync(msg);
-
+                return true;
             }
-            catch (Exception ex)
-            {
-                Console.WriteLine(ex.Message);
-                return false;
-            }
-
-            return true;
         }
-    }
 }

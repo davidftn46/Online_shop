@@ -1,13 +1,14 @@
 {
   "version": 2,
-  "dgSpecHash": "mXdFcAb4Dz0aYOWLwmIJYDZWEBEbEGHUYuK93KIEw5g+JlyHR/6v2tZd3Uz4Mmz04WXGGS3aKc/n90OrxgvR/g==",
+  "dgSpecHash": "T+FsxxbWurh5d+kvW8x/YWUVYy7cXO9w25bdcSYdG3rpvJWn08KjN5tf46Z96GbjIXFaPFuCtef4Mvuxu7l1Ow==",
   "success": true,
-  "projectFilePath": "C:\\Users\\David\\Desktop\\Veb2-projekat\\OnlineShop_back\\DataAccessLayer\\DataAccessLayer.csproj",
+  "projectFilePath": "C:\\Users\\David\\Desktop\\Veb2-projekat\\Online_shop\\OnlineShop_back\\DataAccessLayer\\DataAccessLayer.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\David\\.nuget\\packages\\automapper\\12.0.1\\automapper.12.0.1.nupkg.sha512",
     "C:\\Users\\David\\.nuget\\packages\\azure.core\\1.24.0\\azure.core.1.24.0.nupkg.sha512",
     "C:\\Users\\David\\.nuget\\packages\\azure.identity\\1.6.0\\azure.identity.1.6.0.nupkg.sha512",
     "C:\\Users\\David\\.nuget\\packages\\humanizer.core\\2.14.1\\humanizer.core.2.14.1.nupkg.sha512",
+    "C:\\Users\\David\\.nuget\\packages\\microsoft.aspnetcore.authentication.google\\7.0.11\\microsoft.aspnetcore.authentication.google.7.0.11.nupkg.sha512",
     "C:\\Users\\David\\.nuget\\packages\\microsoft.aspnetcore.authentication.jwtbearer\\7.0.10\\microsoft.aspnetcore.authentication.jwtbearer.7.0.10.nupkg.sha512",
     "C:\\Users\\David\\.nuget\\packages\\microsoft.bcl.asyncinterfaces\\1.1.1\\microsoft.bcl.asyncinterfaces.1.1.1.nupkg.sha512",
     "C:\\Users\\David\\.nuget\\packages\\microsoft.csharp\\4.7.0\\microsoft.csharp.4.7.0.nupkg.sha512",

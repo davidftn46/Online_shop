@@ -11,13 +11,17 @@ namespace BusinessLogicLayer.Services.Interfaces
 {
     public interface IUserService
     {
-        Task<Answer<bool>> RegisterAdmin(AdministratorDTO userDTO);
-        Task<Answer<bool>> RegisterUser(UserDTO userDTO, Roles.RolesType Role);
+        Answer<bool> RegisterAdmin(UserDTO userDTO);
+        Task<Answer<bool>> RegisterUser(UserDTO userDTO, Roles.RolesType Role, string file);
+        Task<Answer<bool>> GoogleRegister(string accessToken, Roles.RolesType Role);
         Answer<ProfileDTO> LoginUser(LoginDTO loginDTO);
-        Answer<bool> VerifyUser(long id);
-        Task<Answer<bool>> ForgotPassword(string email);
+        Task<Answer<ProfileDTO>> GoogleLogin(string accessToken);
+        Task<Answer<bool>> VerifyUser(VerificationDTO verificationDTO);
+        Task<Answer<bool>> DenyUser(VerificationDTO verificationDTO);
         Answer<bool> ResetPassword(ResetPasswordDTO passwordResetDTO);
         Answer<ProfileDTO> GetProfile(string email);
-        Answer<bool> UpdateProfile(ProfileDTO profileDTO);
+        Answer<ProfileDTO> UpdateProfile(UserDTO userDTO, string file);
+        Answer<List<ProfileDTO>> GetVerified();
+
     }
 }
