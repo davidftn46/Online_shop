@@ -1,0 +1,14 @@
+.button {
+    cursor: pointer;
+    font: inherit;
+    font-family: 'Poppins', sans-serif;
+    border: none;
+    background-color: black;
+    color: white;
+    padding: 0.85rem 3.5rem;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    border-radius: 20px;
+    font-weight: bold;
+  }

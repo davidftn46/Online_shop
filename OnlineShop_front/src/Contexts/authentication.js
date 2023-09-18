@@ -1,39 +1,42 @@
-import React,{useState, useEffect} from "react";
+import React,{useState,useEffect} from 'react'
+import User from '../Models/User'
 
 const Authentication = React.createContext({
     isLoggedIn:false,
-    onLoggout: ()=>{},
-    onLogin:(email,password)=>{},
-    onRegister:()=>{},
+    onLogout: ()=>{},
+    onLogin:(user)=>{},
 });
 
 export const AuthenticationBuying = (props) => {
     const [isLoggedIn,setIsLoggedIn] = useState(false);
-    const [user,setUser] = useState({});
+    const [user,setUser] = useState(JSON.parse(localStorage.getItem('user')));
     
     useEffect(()=>{
-        const storedUserLoggedIn = localStorage.getItem('isLoggedIn');
+        const storedUserLoggedInInformation = localStorage.getItem('isLoggedIn');
     
-        if(storedUserLoggedIn === '1')
+        if(storedUserLoggedInInformation === '1'){
           setIsLoggedIn(true)
-    
+          setUser(JSON.parse(localStorage.getItem('user')));
+        }
+        else
+        {
+            setIsLoggedIn(false);
+            setUser(new User(0,'','','','','','','',0,false,''));
+        }
     }, []);
 
     const logoutHandler =()=>{
         localStorage.removeItem('isLoggedIn');
+        localStorage.removeItem('user');
         setIsLoggedIn(false);
+        setUser(new User(0,'','','','','','','',0,false,''));
     }
 
     const loginHandler=(user)=>{
-        localStorage.setItem('token', user.Token);
+        localStorage.setItem('user', JSON.stringify(user));
         localStorage.setItem('isLoggedIn','1');
         setIsLoggedIn(true);
         setUser(user);
-    }
-
-    const RegisterHandler=()=>{
-        localStorage.setItem('isLoggedIn','1');
-        setIsLoggedIn(true);
     }
 
     return (
@@ -42,7 +45,7 @@ export const AuthenticationBuying = (props) => {
             user:user,
             onLogout: logoutHandler, 
             onLogin: loginHandler, 
-            onRegister:RegisterHandler}}>
+            }}>
             {props.children}
         </Authentication.Provider>
     )

@@ -28,7 +28,6 @@ namespace OnlineShop_back.Controllers
         }
 
         [HttpPost("addNew")]
-        [Authorize(Roles = "Seller")]
         public async Task<IActionResult> AddNewProduct([FromForm] NewProductDTO itemDTO, IFormFile? file = null)
         {
             if (ModelState.IsValid)

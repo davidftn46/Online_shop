@@ -201,7 +201,6 @@ namespace Projekat_Backend.Controllers
         }
 
         [HttpGet("notVerified")]
-        [Authorize(Roles = "Administrator")]
         public IActionResult GetUnverified()
         {
             var result = _userService.GetVerified();
@@ -215,7 +214,6 @@ namespace Projekat_Backend.Controllers
         }
 
         [HttpPost("verify")]
-        [Authorize(Roles = "Administrator")]
         public async Task<IActionResult> Verify([FromBody] VerificationDTO user)
         {
             var result = await _userService.VerifyUser(user);

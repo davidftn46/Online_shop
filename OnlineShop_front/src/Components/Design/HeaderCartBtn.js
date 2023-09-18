@@ -1,10 +1,9 @@
 import React,{useContext, useEffect, useState} from 'react'
-import CartIcon from '../Cart/CartIcon'
 
 import classes from './HeaderCBD.module.css'
 import CartContext from '../../Contexts/cart-context'
 
-const HeaderCartBtn = (props) => {
+const HeaderCartButton = (props) => {
   const ctx = useContext(CartContext);
   const {products} = ctx;
 
@@ -30,7 +29,7 @@ const HeaderCartBtn = (props) => {
   return (
     <button className={btnClasses} onClick={props.onClick}>
         <span className={classes.icon}>
-            <CartIcon/>
+
         </span>
         <span>Your Cart</span>
         <span className={classes.badge}>{numOfProducts}</span>
@@ -38,4 +37,4 @@ const HeaderCartBtn = (props) => {
   )
 }
 
-export default HeaderCartBtn
+export default HeaderCartButton

@@ -77,7 +77,7 @@ namespace BusinessLogicLayer.Services.SrvcImplementations
 
         public Answer<IEnumerable<OrderDTO>> GetAll()
         {
-            var list = _unitOfWork.Orders.GetAll(includeProperties: "OrderItems");
+            var list = _unitOfWork.Orders.GetAll(includeProperties: "OrderProducts");
             var retList = new List<OrderDTO>();
             foreach (var order in list)
             {
@@ -100,7 +100,7 @@ namespace BusinessLogicLayer.Services.SrvcImplementations
        
         public Answer<IEnumerable<OrderDTO>> GetByUser(long UserId)
         {
-            var list = _unitOfWork.Orders.GetAll(o => o.UserId == UserId && !o.Canceled, includeProperties: "OrderItems");
+            var list = _unitOfWork.Orders.GetAll(o => o.UserId == UserId && !o.Canceled, includeProperties: "OrderProducts");
             var retList = new List<OrderDTO>();
             foreach (var order in list)
             {
@@ -181,7 +181,7 @@ namespace BusinessLogicLayer.Services.SrvcImplementations
         
         public Answer<bool> UpdateOrder(long id)
         {
-            List<Order> orders = _unitOfWork.Orders.GetAll(includeProperties: "OrderItems").ToList();
+            List<Order> orders = _unitOfWork.Orders.GetAll(includeProperties: "OrderProducts").ToList();
             foreach (Order order in orders)
             {
                 foreach (OrderProduct orderProduct in order.OrderProducts)

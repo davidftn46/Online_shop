@@ -22,7 +22,7 @@ namespace DataAccessLayer.Repository
 
         public IEnumerable<Order> GetHistory(long Id)
         {
-            List<Order> allOrders = _db.Orders.Include("OrderItems").ToList();
+            List<Order> allOrders = _db.Orders.Include("OrderProducts").ToList();
             List<Order> retList = new List<Order>();
             foreach (Order order in allOrders)
                 foreach (OrderProduct i in order.OrderProducts)
@@ -36,7 +36,7 @@ namespace DataAccessLayer.Repository
 
         public IEnumerable<Order> GetNew(long Id)
         {
-            List<Order> allOrders = _db.Orders.Include("OrderItems").ToList();
+            List<Order> allOrders = _db.Orders.Include("OrderProducts").ToList();
             List<Order> retList = new List<Order>();
             foreach (Order order in allOrders)
                 foreach (OrderProduct i in order.OrderProducts)

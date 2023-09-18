@@ -18,7 +18,6 @@ namespace OnlineShop_back.Controllers
         }
 
         [HttpGet("allOrders")]
-        [Authorize(Roles = "Administrator")]
         public IActionResult GetAll()
         {
             Answer<IEnumerable<OrderDTO>> response = _orderService.GetAll();
@@ -60,7 +59,6 @@ namespace OnlineShop_back.Controllers
 
 
         [HttpPost("newOrder")]
-        [Authorize(Roles = "Customer")]
         public IActionResult NewOrder([FromBody] NewOrderDTO orderDTO)
         {
             Answer<bool> response = _orderService.AddOrder(orderDTO);
